@@ -1,5 +1,5 @@
 module "vpn-gateway" {
-  source  = "kumarvna/vpn-gateway/azurerm"
+  source  = "https://github.com/krishna1704/palo"
   version = "1.1.0"
 
   # Resource Group, location, VNet and Subnet details
