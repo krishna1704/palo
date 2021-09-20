@@ -31,7 +31,6 @@ resource "azurerm_public_ip" "pip_gw" {
   resource_group_name = data.azurerm_resource_group.rg.name
   allocation_method   = var.public_ip_allocation_method
   sku                 = var.public_ip_sku
-  domain_name_label   = format("gw%s%s", lower(replace(var.vpn_gateway_name, "/[[:^alnum:]]/", "")), random_string.str.result)
   tags                = merge({ "ResourceName" = lower("${var.vpn_gateway_name}-${data.azurerm_resource_group.rg.location}-gw-pip") }, var.tags, )
 }
 
@@ -43,7 +42,6 @@ resource "azurerm_public_ip" "pip_aa" {
   resource_group_name = data.azurerm_resource_group.rg.name
   allocation_method   = var.public_ip_allocation_method
   sku                 = var.public_ip_sku
-  domain_name_label   = format("gwaa%s%s", lower(replace(var.vpn_gateway_name, "/[[:^alnum:]]/", "")), random_string.str.result)
   tags                = merge({ "ResourceName" = lower("${var.vpn_gateway_name}-${data.azurerm_resource_group.rg.location}-gw-aa-pip") }, var.tags, )
 }
 
@@ -87,22 +85,6 @@ resource "azurerm_virtual_network_gateway" "vpngw" {
       subnet_id                     = data.azurerm_subnet.snet.id
     }
   }
-
-  dynamic "vpn_client_configuration" {
-    for_each = var.vpn_client_configuration != null ? [var.vpn_client_configuration] : []
-    iterator = vpn
-    content {
-      address_space = [vpn.value.address_space]
-      root_certificate {
-        name             = "point-to-site-root-certifciate"
-        public_cert_data = vpn.value.certificate
-      }
-      vpn_client_protocols = vpn.value.vpn_client_protocols
-    }
-  }
-  tags = merge({ "ResourceName" = "${var.vpn_gateway_name}" }, var.tags, )
-}
-
 #---------------------------
 # Local Network Gateway
 #---------------------------
@@ -154,5 +136,5 @@ resource "azurerm_virtual_network_gateway_connection" "az-hub-onprem" {
       sa_lifetime      = var.local_networks_ipsec_policy.sa_lifetime
     }
   }
-  //tags = merge({ "ResourceName" = var.gateway_connection_type == "ExpressRoute" ? "localgw-expressroute-connection" : "localgw-connection-${var.local_networks[count.index].local_gw_name}" }, var.tags, )
+  tags = merge({ "ResourceName" = var.gateway_connection_type == "ExpressRoute" ? "localgw-expressroute-connection" : "localgw-connection-${var.local_networks[count.index].local_gw_name}" }, var.tags, )
 }
