@@ -83,12 +83,6 @@ variable "bgp_peer_weight" {
   default     = ""
 }
 
-variable "vpn_client_configuration" {
-  type        = object({ address_space = string, certificate = string, vpn_client_protocols = list(string) })
-  description = "Virtual Network Gateway client configuration to accept IPSec point-to-site connections"
-  default     = null
-}
-
 variable "local_networks" {
   type        = list(object({ local_gw_name = string, local_gateway_address = string, local_address_space = list(string), shared_key = string }))
   description = "List of local virtual network connections to connect to gateway"
