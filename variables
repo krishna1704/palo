@@ -1,6 +1,6 @@
 variable "resource_group_name" {
   description = "A container that holds related resources for an Azure solution"
-  default     = ""
+  default     = "sample-vnet"
 }
 
 variable "location" {
@@ -10,7 +10,7 @@ variable "location" {
 
 variable "virtual_network_name" {
   description = "The name of the virtual network"
-  default     = ""
+  default     = "vnet-name"
 }
 
 variable "subnet_name" {
@@ -20,7 +20,7 @@ variable "subnet_name" {
 
 variable "vpn_gateway_name" {
   description = "The name of the Virtual Network Gateway"
-  default     = ""
+  default     = "vnet-gateway"
 }
 
 variable "public_ip_allocation_method" {
@@ -60,12 +60,12 @@ variable "vpn_gw_generation" {
 
 variable "enable_active_active" {
   description = "If true, an active-active Virtual Network Gateway will be created. An active-active gateway requires a HighPerformance or an UltraPerformance sku. If false, an active-standby gateway will be created. Defaults to false."
-  default     = false
+  default     = true
 }
 
 variable "enable_bgp" {
   description = "If true, BGP (Border Gateway Protocol) will be enabled for this Virtual Network Gateway. Defaults to false"
-  default     = false
+  default     = true
 }
 
 variable "bgp_asn_number" {
@@ -80,13 +80,13 @@ variable "bgp_peering_address" {
 
 variable "bgp_peer_weight" {
   description = "The weight added to routes which have been learned through BGP peering. Valid values can be between 0 and 100"
-  default     = ""
+  default     = "10"
 }
 
 variable "local_networks" {
   type        = list(object({ local_gw_name = string, local_gateway_address = string, local_address_space = list(string), shared_key = string }))
   description = "List of local virtual network connections to connect to gateway"
-  default     = []
+  default     = [{local_gw_name = "onpremise",local_gateway_address  ="8.8.8.8",local_address_space =["10.1.0.0/24","10.0.0.0/16"],shared_key ="humana"}]
 }
 
 variable "local_bgp_settings" {
