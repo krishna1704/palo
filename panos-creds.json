@@ -2,6 +2,6 @@
     "hostname": "http://palo-firewall.eastus2.cloudapp.azure.com/",
     "password": "Pspalopoc!2021",
     "username": "palo-admin"   
-    "logging": ["action", "op", "uid"],
+    "logging" : ["action", "op", "uid"],
     "verify_certificate": false
 }
