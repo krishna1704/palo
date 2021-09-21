@@ -1,7 +1,7 @@
 {
-    "hostname": "127.0.0.1",
-    "api_key": "secret",
-    "timeout": 10,
+    "hostname": "http://palo-firewall.eastus2.cloudapp.azure.com/",
+    "password": "Pspalopoc!2021",
+    "username": "palo-admin"   
     "logging": ["action", "op", "uid"],
     "verify_certificate": false
 }
