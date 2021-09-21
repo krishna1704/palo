@@ -1,4 +1,10 @@
 data "panos_system_info" "config" {}
+data "panos_ethernet_interface" "eth1" {
+    name = "ethernet1/1"
+    vsys = "vsys1"
+    mode = "layer3"
+    adjust_tcp_mss = true
+    ipv4_mss_adjust = "${data.panos_system_info.config.version_major >= 8 ? 42 : 0}"
 
 resource "panos_tunnel_interface" "tunnel" {
     name = "tunnel.1"
