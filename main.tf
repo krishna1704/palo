@@ -7,6 +7,7 @@ data "azurerm_virtual_network" "vnet" {
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 
+
 data "azurerm_subnet" "snet" {
   name                 = "GatewaySubnet"
   virtual_network_name = data.azurerm_virtual_network.vnet.name
@@ -85,6 +86,7 @@ resource "azurerm_virtual_network_gateway" "vpngw" {
       subnet_id                     = data.azurerm_subnet.snet.id
     }
   }
+}
 #---------------------------
 # Local Network Gateway
 #---------------------------
@@ -105,6 +107,9 @@ resource "azurerm_local_network_gateway" "localgw" {
     }
   }
   tags = merge({ "ResourceName" = "localgw-${var.local_networks[count.index].local_gw_name}" }, var.tags, )
+  # depends_on = [
+  #   azurerm_virtual_network_gateway.vpngw
+  # ]
 }
 
 #---------------------------------------
@@ -137,4 +142,8 @@ resource "azurerm_virtual_network_gateway_connection" "az-hub-onprem" {
     }
   }
   tags = merge({ "ResourceName" = var.gateway_connection_type == "ExpressRoute" ? "localgw-expressroute-connection" : "localgw-connection-${var.local_networks[count.index].local_gw_name}" }, var.tags, )
+  # depends_on = [
+  #   azurerm_local_network_gateway.localgw,
+  #   azurerm_virtual_network_gateway.vpngw
+  # ]
 }
