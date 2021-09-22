@@ -10,12 +10,11 @@ terraform {
   }
   required_version = ">= 0.13"
 }
-
 provider "azurerm" {
   features {}
 }
 # Configure the panos provider
-provider "panos" {
+/*provider "panos" {
     hostname = "127.0.0.1"
     json_config_file = "../panos-creds.json"
-}
+}*/
