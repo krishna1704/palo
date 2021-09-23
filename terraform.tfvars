@@ -61,9 +61,9 @@ local_networks = [
 
 # Adding TAG's to your Azure resources (Required)
 tags = {
-  ProjectName  = "demo-internal"
+  ProjectName  = "palo-alto"
   Env          = "dev"
-  Owner        = "user@example.com"
-  BusinessUnit = "CORP"
-  ServiceClass = "Gold"
+  Owner        = "humana.com"
+  BusinessUnit = "automation"
+  ServiceClass = "networking"
 }
