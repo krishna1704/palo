@@ -142,8 +142,5 @@ resource "azurerm_virtual_network_gateway_connection" "az-hub-onprem" {
     }
   }
   tags = merge({ "ResourceName" = var.gateway_connection_type == "ExpressRoute" ? "localgw-expressroute-connection" : "localgw-connection-${var.local_networks[count.index].local_gw_name}" }, var.tags, )
-  # depends_on = [
-  #   azurerm_local_network_gateway.localgw,
-  #   azurerm_virtual_network_gateway.vpngw
-  # ]
+
 }
