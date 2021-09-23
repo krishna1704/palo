@@ -78,7 +78,7 @@ resource "panos_ipsec_tunnel" "partner-ipsec-tunnel" {
 }
 
 # Interoperability with non PanOS peers.
-# Proxy IDs
+# Proxy ID
 resource "panos_ipsec_tunnel_proxy_id_ipv4" "partner-proxy-id-1" {
   ipsec_tunnel = panos_ipsec_tunnel.partner-ipsec-tunnel.name
   name         = "partner-1"
