@@ -114,7 +114,6 @@ variable "fw_ip" {}
 variable "username" {}
 variable "password" {}
 
-
 variable "gateway_connection_protocol" {
   description = "The IKE protocol version to use. Possible values are IKEv1 and IKEv2. Defaults to IKEv2"
   default     = "IKEv2"

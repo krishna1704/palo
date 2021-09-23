@@ -11,7 +11,6 @@ resource "panos_tunnel_interface" "partner-tunnel-interface" {
     "6.6.6.6"
   ]
 }
-
 resource "panos_virtual_router_entry" "vre-tunnel-101" {
   virtual_router = panos_virtual_router.default.name
   interface      = panos_tunnel_interface.partner-tunnel-interface.name
